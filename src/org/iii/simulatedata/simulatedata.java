@@ -18,11 +18,11 @@ public class simulatedata {
 				if (tplFile.isFile()) {
 					String tpl = FileUtils.readFileToString(tplFile);
 					String tplName = tplFile.getName();
-					System.out.println("======tplName: " + tplName + ", begin===================");
+					System.out.println("Template Name: " + tplName + ", ===================");
 					TemplateAnalyzer testTplAnalyzer = new TemplateAnalyzer(tplName, tpl);
 					String abc = testTplAnalyzer.analyse();
 					System.out.println(abc);
-					System.out.println("======tplName: " + tplName + ", end==================");
+					System.out.println("Template Name: " + tplName + ", ==================");
 					System.out.println();
 				}
 			}
