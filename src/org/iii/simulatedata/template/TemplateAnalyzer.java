@@ -2,7 +2,7 @@ package org.iii.simulatedata.template;
 
 import java.util.Map;
 
-public class TemplateAnalyzer implements Analyzer {
+public class TemplateAnalyzer {
 
 	private final String tplName;
 	private final String template;

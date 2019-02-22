@@ -4,7 +4,7 @@ tmp=$Func{intRand(1000000000, 1999999999)}
 b=testVar
 ot=$Func{intRand(2)}
 E-mail
-中文名
+中文名=$Func{}
 中文姓
 任職公司
 使用者名稱

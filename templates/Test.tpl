@@ -4,6 +4,7 @@
            "version": $Var{tmp}=$Func{doubleRand(0,10,2)},
            "os_type": "$Dic{ot}",
            "os": "$Var{tmp}",
-           "test": "$Dic{b}"
+           "test": "$Dic{b}",
+           "姓": "$Func{strSurname()}"
       }
 }
