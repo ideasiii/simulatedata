@@ -137,10 +137,10 @@ public class TemplateAnalyseUtils {
 		String result = null;
 		if (dic.startsWith(PRE_DIC)) {
 			String dicItem = dic.substring(PRE_DIC.length(), dic.length() - 1);
-			// get dic
 			String[] items = Dictionary.getDicArray(dicItem);
 			if (items != null) {
 				result = items[r.nextInt(items.length)];
+				
 			}
 			if (result != null && result.trim().startsWith(PRE_FUNC)) {
 				result = executeFunc(result);

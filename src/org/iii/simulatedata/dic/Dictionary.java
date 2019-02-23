@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Dictionary {
 	private static Map<String, Properties> dics = new HashMap<String, Properties>();
@@ -24,7 +24,7 @@ public class Dictionary {
 
 	public static Properties loadDic(String path) throws Exception {
 		Properties p = new Properties();
-		InputStream is = new FileInputStream(path);
+		InputStreamReader is = new InputStreamReader(new FileInputStream(path), "UTF-8");
 		p.load(is);
 		is.close();
 		return p;
@@ -50,6 +50,7 @@ public class Dictionary {
 			dics.put(namespace, d);
 		}
 		d.put(key, value);
+		System.out.println();
 	}
 
 	public static void addDic(String key, String value) {
