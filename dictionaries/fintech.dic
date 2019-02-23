@@ -1,11 +1,11 @@
-name=$Func{}
 reqUrl=http://www.abc.com/a/b/c|||http://www.def.com/d/e/f
 tmp=$Func{intRand(1000000000, 1999999999)}
 b=testVar
 ot=$Func{intRand(2)}
+marital=已婚|||未婚
+
 E-mail
-中文名=$Func{}
-中文姓
+
 任職公司
 使用者名稱
 個人網路銀行設定
@@ -21,8 +21,8 @@ E-mail
 固定密碼
 國籍
 國籍別
-姓名
-婚姻狀態
+
+
 婚嬰狀況
 子女數
 居住地址

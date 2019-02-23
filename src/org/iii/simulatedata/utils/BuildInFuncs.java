@@ -34,17 +34,12 @@ public class BuildInFuncs {
 		for (int i = 0; i < n; i++) {
 			int type = random.nextInt(3);
 			switch (type) {
-			// 数字
 			case 0:
 				strb.append((char) ('0' + random.nextInt(10)));
 				break;
-
-			// 小写
 			case 1:
 				strb.append((char) ('a' + random.nextInt(26)));
 				break;
-
-			// 大写
 			case 2:
 				strb.append((char) ('A' + random.nextInt(26)));
 				break;
@@ -75,6 +70,14 @@ public class BuildInFuncs {
 
 	public static String strSurname() {
 		return Data.surname[random.nextInt(Data.surname.length - 1)];
+	}
+
+	public static String strFirstName() {
+		return (Data.word[random.nextInt(Data.word.length - 1)] + Data.word[random.nextInt(Data.word.length - 1)]);
+	}
+
+	public static String strName() {
+		return (strSurname() + strFirstName());
 	}
 
 	public static void main(String[] args) {

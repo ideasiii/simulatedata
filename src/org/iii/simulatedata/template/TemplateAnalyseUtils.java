@@ -7,17 +7,16 @@ import java.util.TreeMap;
 import org.iii.simulatedata.dic.Dictionary;
 import org.iii.simulatedata.utils.*;
 
-
 public class TemplateAnalyseUtils {
-	// 函数变量前缀
+
 	private static final String PRE_FUNC = "$Func{";
-	// 词典变量前缀
+
 	private static final String PRE_DIC = "$Dic{";
-	// 自定义变量前缀
+
 	private static final String PRE_VAR = "$Var{";
 
-	private static char eq = 61; // =等号的ASCII值
-	private static char closeBrace = 125; // }闭花括号的ASCII值
+	private static char eq = 61; // = ASCII
+	private static char closeBrace = 125; // } ASCII
 
 	private static final Random r = new Random();
 
@@ -25,20 +24,19 @@ public class TemplateAnalyseUtils {
 		boolean hasFunc = template.contains(PRE_FUNC);
 		boolean hasDic = template.contains(PRE_DIC);
 		boolean hasVar = template.contains(PRE_VAR);
-		if (hasFunc && type == 1) { // func
+		if (hasFunc && type == 1) {
 			int funcIndex = template.indexOf(PRE_FUNC);
 			int funcEndIndex = template.indexOf("}", funcIndex);
 			String func = template.substring(funcIndex, funcEndIndex + 1);
-			String funcKey = "F" + StringUtils.formatNumber("" + itemIndex, 3) + "-" + func;
+			String funcKey = "F" + formatNumber("" + itemIndex, 3) + "-" + func;
 			tplVar.put(funcKey, func);
-			// 解析var var需要与func联合使用
+
 			if (hasVar) {
 				if (template.charAt(funcIndex - 1) == eq && template.charAt(funcIndex - 2) == closeBrace) {
 					int varIndex = template.substring(0, funcIndex).lastIndexOf(PRE_VAR);
 					if (varIndex < funcIndex) {
 						String varName = template.substring(varIndex, funcIndex - 1);
-						String varKey = "V" + StringUtils.formatNumber("" + itemIndex, 3) + "-" + varName;
-						// System.out.println("Func: " + varKey + "===>" + funcKey);
+						String varKey = "V" + formatNumber("" + itemIndex, 3) + "-" + varName;
 						tplVar.put(varKey, funcKey);
 					}
 				}
@@ -47,20 +45,20 @@ public class TemplateAnalyseUtils {
 			analyse(template.substring(funcEndIndex + 1), startIndex + funcEndIndex + 1, 1, ++itemIndex, tplVar);
 		}
 
-		if (hasDic && type == 2) { // dic
+		if (hasDic && type == 2) {
 			int dicIndex = template.indexOf(PRE_DIC);
 			int dicEndIndex = template.indexOf("}", dicIndex);
 			String dic = template.substring(dicIndex, dicEndIndex + 1);
-			String dicKey = "D" + StringUtils.formatNumber("" + itemIndex, 3) + "-" + dic;
+			String dicKey = "D" + formatNumber("" + itemIndex, 3) + "-" + dic;
 			tplVar.put(dicKey, dic);
-			// 解析var var需要与func联合使用
+
 			if (hasVar) {
 				if (template.charAt(dicIndex - 1) == eq && template.charAt(dicIndex - 2) == closeBrace) {
 					int varIndex = template.substring(0, dicIndex).lastIndexOf(PRE_VAR);
 					if (varIndex < dicIndex) {
 						String varName = template.substring(varIndex, dicIndex - 1);
-						String varKey = "V" + StringUtils.formatNumber("" + itemIndex, 3) + "-" + varName;
-						// System.out.println("Dic : " + varKey + "===>" + dicKey);
+						String varKey = "V" + formatNumber("" + itemIndex, 3) + "-" + varName;
+
 						tplVar.put(varKey, dicKey);
 					}
 				}
@@ -71,12 +69,6 @@ public class TemplateAnalyseUtils {
 
 	}
 
-	/**
-	 * 抽取模版中的函数,词典,自定义变量等
-	 * 
-	 * @param template
-	 * @return
-	 */
 	public static Map<String, String> extractVar(String template) {
 		Map<String, String> tplVar = new TreeMap<String, String>();
 		int itmeIndex = 0;
@@ -91,12 +83,6 @@ public class TemplateAnalyseUtils {
 		return tplVar;
 	}
 
-	/**
-	 * 执行模版中的函数
-	 * 
-	 * @param func $Func{}
-	 * @throws Exception
-	 */
 	public static String executeFunc(String func) throws Exception {
 		if (func == null) {
 			return null;
@@ -105,7 +91,7 @@ public class TemplateAnalyseUtils {
 		String result = null;
 		if (func.startsWith(PRE_FUNC)) {
 			String funcName = func.substring(PRE_FUNC.length(), func.length() - 1);
-			// execute func
+
 			String mName = null;
 			String pars = null;
 			if (funcName != null && funcName.trim().length() > 0) {
@@ -143,12 +129,6 @@ public class TemplateAnalyseUtils {
 		return result;
 	}
 
-	/**
-	 * 查找词典数据，随机取出一个
-	 * 
-	 * @param dic $Dic{}
-	 * @throws Exception
-	 */
 	public static String searchDic(String dic) throws Exception {
 		if (dic == null) {
 			return null;
@@ -170,12 +150,6 @@ public class TemplateAnalyseUtils {
 		return result;
 	}
 
-	/**
-	 * 执行函数 查找词典 并将得到的结果写回map
-	 * 
-	 * @param funcAndDic
-	 * @throws Exception
-	 */
 	public static Map<String, String> execute(Map<String, String> funcAndDic) throws Exception {
 		if (funcAndDic == null) {
 			return null;
@@ -240,6 +214,15 @@ public class TemplateAnalyseUtils {
 		funcAndDic = null;
 
 		return template;
+	}
+
+	public static String formatNumber(String num, int n) {
+		if (num != null) {
+			while (num.length() < n) {
+				num = "0" + num;
+			}
+		}
+		return num;
 	}
 
 	public static void main(String[] args) throws Exception {
