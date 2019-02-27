@@ -80,6 +80,50 @@ public class BuildInFuncs {
 		return (strSurname() + strFirstName());
 	}
 
+	public static String strEmail() {
+		String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
+		int nLen = random.nextInt(10);
+		while (5 > nLen)
+			nLen = nLen * 2;
+
+		int nSize = 0;
+		StringBuilder salt = new StringBuilder();
+		while (nSize < nLen) {
+			salt.append(allowedChars.charAt(random.nextInt(allowedChars.length() - 1)));
+			++nSize;
+		}
+
+		String saltStr = salt.toString();
+		return (saltStr + "@" + Data.email[random.nextInt(Data.email.length - 1)]);
+	}
+
+	public static String strCompany() {
+		return (Data.company[random.nextInt(Data.company.length - 1)]);
+	}
+
+	public static String strEnglistName(String strSex) {
+		String strename;
+		strSex.trim();
+		
+		if (0 == strSex.compareTo("男")) {
+			strename = Data.enameboy[random.nextInt(Data.enameboy.length - 1)];
+		} else {
+			strename = Data.enamegirl[random.nextInt(Data.enamegirl.length - 1)];
+		}
+		return strename;
+	}
+
+	public static String strCompanyPhone() {
+		String strNumber = "1234567890";
+		int nSize = 0;
+		StringBuilder salt = new StringBuilder();
+		while (nSize < 8) {
+			salt.append(strNumber.charAt(random.nextInt(strNumber.length() - 1)));
+			++nSize;
+		}
+		return salt.toString();
+	}
+
 	public static void main(String[] args) {
 		System.out.println(intRand(10));
 		System.out.println(doubleRand());
