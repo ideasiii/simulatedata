@@ -14,7 +14,11 @@
            "E-mail": "$Func{strEmail()}",
            "任職公司": "$Func{strCompany()}",
            "公司電話": "$Func{strCompanyPhone()}",
-           "使用者名稱": "$Func{strEnglistName("男")}"
+           "使用者名稱": "$Func{strEnglistNameMan()}",
+           "國籍": "$Dic{country}",
+           "語系": "$Func{strLocale()}",
+           "出生地": "$Dic{town}",
+           "出生日期": "$Func{strBirthday()}"
       }
       
       "sample":

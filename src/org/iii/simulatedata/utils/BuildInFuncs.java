@@ -1,5 +1,9 @@
 package org.iii.simulatedata.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
@@ -101,16 +105,12 @@ public class BuildInFuncs {
 		return (Data.company[random.nextInt(Data.company.length - 1)]);
 	}
 
-	public static String strEnglistName(String strSex) {
-		String strename;
-		strSex.trim();
-		
-		if (0 == strSex.compareTo("男")) {
-			strename = Data.enameboy[random.nextInt(Data.enameboy.length - 1)];
-		} else {
-			strename = Data.enamegirl[random.nextInt(Data.enamegirl.length - 1)];
-		}
-		return strename;
+	public static String strEnglistNameMan() {
+		return Data.enameboy[random.nextInt(Data.enameboy.length - 1)];
+	}
+
+	public static String strEnglistNameWomen() {
+		return Data.enamegirl[random.nextInt(Data.enamegirl.length - 1)];
 	}
 
 	public static String strCompanyPhone() {
@@ -122,6 +122,39 @@ public class BuildInFuncs {
 			++nSize;
 		}
 		return salt.toString();
+	}
+
+	public static String strCountry() {
+		return (Data.country[random.nextInt(Data.country.length - 1)]);
+	}
+
+	public static String strLocale() {
+		Locale locale = Locale.getDefault();
+		String s = locale.getDisplayName();
+		return s;
+	}
+
+	public static String strBirthday() {
+
+		int nAge = random.nextInt(60);
+
+		if (20 > nAge)
+			nAge = nAge + 18;
+
+		Calendar calendar = Calendar.getInstance();
+		int nYear = calendar.get(Calendar.YEAR) - nAge;
+		int nMonth = random.nextInt(12);
+		if (0 == nMonth)
+			nMonth = 2;
+		int nDay;
+		if (2 == nMonth) {
+			nDay = random.nextInt(28);
+		} else {
+			nDay = random.nextInt(30);
+		}
+
+		String strB = String.format("%d/%d/%d", nYear, nMonth, nDay);
+		return strB;
 	}
 
 	public static void main(String[] args) {
