@@ -20,8 +20,10 @@ public class FunctionUtils {
 		return method.invoke(null, parameter);
 	}
 
+	/*
 	public static void main(String[] args) throws Exception {
 		System.out.println(executeMethod("timestamp", null, null));
 		System.out.println(executeMethod("intRand", new Class[] { Integer.class }, new Object[] { 2 }));
 	}
+	*/
 }

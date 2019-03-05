@@ -158,11 +158,55 @@ public class BuildInFuncs {
 		return strB;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(intRand(10));
-		System.out.println(doubleRand());
-		System.out.println(doubleRand(10, 100, 3));
-		System.out.println(numRand(10));
-		System.out.println(strRand(10));
+	public static String strStreet() {
+		String strRecord = "台北市民生東路三段133號";
+		SQLiteConfig config = new SQLiteConfig();
+		config.setSharedCache(true);
+		config.enableRecursiveTriggers(true);
+
+		SQLiteDataSource ds = new SQLiteDataSource(config);
+		ds.setUrl("jdbc:sqlite:database/streetname.db");
+
+		try {
+			Connection con = ds.getConnection();
+			String sql = "SELECT * FROM streetname ORDER BY RANDOM() LIMIT 1";// String.format("select * from streetname
+																				// where uid = %d",
+																				// random.nextInt(10484) + 1);
+			Statement stat = null;
+			ResultSet rs = null;
+			stat = con.createStatement();
+			rs = stat.executeQuery(sql);
+			if (rs.next()) {
+				strRecord = rs.getString("city") + rs.getString("country") + rs.getString("road");
+			}
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		return strRecord;
 	}
+
+	public static String strMobilePhone() {
+		String strNumber = "1234567890";
+		String strPrex = Data.mobile[random.nextInt(Data.mobile.length - 1)];
+
+		StringBuilder salt = new StringBuilder();
+		for (int i = 0; i < 6; ++i) {
+			salt.append(strNumber.charAt(random.nextInt(strNumber.length() - 1)));
+		}
+		return (strPrex + salt.toString());
+	}
+
+	public static String strUniform() {
+		String strNumber = "1234567890";
+		StringBuilder salt = new StringBuilder();
+		for (int i = 0; i < 8; ++i) {
+			salt.append(strNumber.charAt(random.nextInt(strNumber.length() - 1)));
+		}
+		return salt.toString();
+	}
+
 }

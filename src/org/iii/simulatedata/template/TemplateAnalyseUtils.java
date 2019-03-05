@@ -224,7 +224,7 @@ public class TemplateAnalyseUtils {
 		}
 		return num;
 	}
-
+/*
 	public static void main(String[] args) throws Exception {
 		Dictionary.loadDics();
 		String tpl = new String(
@@ -247,4 +247,5 @@ public class TemplateAnalyseUtils {
 		System.out.println(tpl);
 		System.out.println("============finish================================");
 	}
+	*/
 }
