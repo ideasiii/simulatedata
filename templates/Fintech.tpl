@@ -22,11 +22,23 @@
            "戶籍地址": "$Func{strStreet()}",
            "帳戶用途": "$Dic{usage}",
            "戶名": "$Var{surname}$Var{firstname}",
-           "手機號碼":  "$Func{strMobilePhone()}",
+           "手機號碼":  "$Func{strMobilePhone(0)}",
            "抵押貸款額度": "$Dic{mortgage}",
            "是否申請金融卡非約定轉帳": "$Dic{transfer}",
            "身分證發證地點": "$Var{town}",
-           "統一編號": "$Func{strUniform()}"
+           "統一編號": "$Func{strUniform()}",
+           "uid" : "$Func{strUUID(1)}",
+           "adid" : "$Func{strUUID(0)}",
+           "num" : "$Func{strMobilePhone(1)}",
+           "region" : "$Func{strRegion(0)}",
+           "city" : "$Func{strTaiwanCity()}",
+           "os" : "$Func{strOS(0)}",
+           "os_version" : $Dic{android_version},
+           "subscript_status" : $Dic{subscript_status},
+           "manufaturer" : "$Dic{manufaturer}",
+           "model" : "$Dic{model}",
+           "language" : "$Func{strLanguage(0)}",
+           "login_status" : $Dic{login_status}
       }
  
 }
