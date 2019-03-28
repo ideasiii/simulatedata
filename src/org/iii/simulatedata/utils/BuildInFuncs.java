@@ -159,7 +159,7 @@ public class BuildInFuncs {
 	}
 
 	public static String strStreet() {
-		String strRecord = "台北市民生東路三段133號";
+		String strRecord = "台北市民生東路四段133號";
 		SQLiteConfig config = new SQLiteConfig();
 		config.setSharedCache(true);
 		config.enableRecursiveTriggers(true);
@@ -207,6 +207,14 @@ public class BuildInFuncs {
 			salt.append(strNumber.charAt(random.nextInt(strNumber.length() - 1)));
 		}
 		return salt.toString();
+	}
+
+	public static String strId() {
+		String strId = "A123456789";
+		int idnum[] = { 10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25, 26, 27, 28, 29, 32, 30,
+				31, 33 };
+		
+		return strId;
 	}
 
 }
