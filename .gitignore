@@ -10,6 +10,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# IDE File
+.deal/
+
 # Package Files #
 *.war
 *.nar
