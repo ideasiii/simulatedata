@@ -11,8 +11,13 @@ public class BinominalDistFuncs extends BinomialDistribution {
     }
 
     public static void main(String[] args){
-        BinominalDistFuncs test = new BinominalDistFuncs(10,10,0.9);
 
-        System.out.println(test);
+        RandomGeneratorIII rng = new RandomGeneratorIII();
+
+        rng.setSeed(1000);
+        rng.nextInt(1000);
+        BinominalDistFuncs test = new BinominalDistFuncs(rng,10,0.9);
+
+        System.out.println(Integer.valueOf(test.sample()));
     }
 }
