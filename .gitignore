@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # IDE File
-.deal/
+.idea
 
 # Package Files #
 *.war
