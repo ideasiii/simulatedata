@@ -12,7 +12,9 @@
 
 # IDE File
 .idea
+.idea/*.xml
 out
+simulatedata.iml
 
 # Package Files #
 *.war
