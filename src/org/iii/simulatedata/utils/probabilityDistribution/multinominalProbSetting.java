@@ -17,7 +17,7 @@ public class multinominalProbSetting implements MatrixLib {
         gx = x;
         gy = y;
         gval = new double[x][y];
-        for (int i = 0; i < x; i++){
+        for (int i = 0; i < val.length; i++){
             gval[i][y-1] = val[i];
         }
     }

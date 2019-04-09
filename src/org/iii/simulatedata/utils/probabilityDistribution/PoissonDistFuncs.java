@@ -6,6 +6,7 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 import java.util.Arrays;
 
 public class PoissonDistFuncs extends PoissonDistribution {
+
     public PoissonDistFuncs(double p) throws NotStrictlyPositiveException {
         super(p);
     }
