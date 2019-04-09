@@ -12,6 +12,7 @@
 
 # IDE File
 .idea
+out
 
 # Package Files #
 *.war
