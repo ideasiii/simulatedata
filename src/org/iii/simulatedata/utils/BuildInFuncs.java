@@ -204,17 +204,7 @@ public class BuildInFuncs
 		try
 		{
 			Connection con = ds.getConnection();
-			String sql = "SELECT * FROM streetname ORDER BY RANDOM() LIMIT 1";// String.format("select
-																				// *
-																				// from
-																				// streetname
-																				// where
-																				// uid
-																				// =
-																				// %d",
-																				// random.nextInt(10484)
-																				// +
-																				// 1);
+			String sql = "SELECT * FROM streetname ORDER BY RANDOM() LIMIT 1";
 			Statement stat = null;
 			ResultSet rs = null;
 			stat = con.createStatement();
@@ -327,9 +317,10 @@ public class BuildInFuncs
 
 	public static String strLanguage(Integer nType)
 	{
-		String strResult = Data.language[random.nextInt(Data.language.length - 1)];
-		
-		switch(nType)
+		String strResult = Data.language[random
+				.nextInt(Data.language.length - 1)];
+
+		switch (nType)
 		{
 			case 0:
 				strResult = "zh";
