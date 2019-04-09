@@ -12,8 +12,9 @@
 
 # IDE File
 .idea
-.idea/*.xml
+.idea/*.
 out
+.idea/workspace.xml
 simulatedata.iml
 
 # Package Files #
