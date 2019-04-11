@@ -15,12 +15,13 @@ public class TemplateAnalyzer {
 
 	public String analyse() {
 		Map<String, String> tplVar = getTplVar();
-		System.out.println(tplVar);
+		//System.out.println(tplVar);
 		try {
 			tplVar = TemplateAnalyseUtils.execute(tplVar);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		String tplResult = TemplateAnalyseUtils.replace(template, tplVar);
 		return tplResult;
 	}

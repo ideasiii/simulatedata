@@ -106,6 +106,7 @@ public class BuildInFuncs
     
     public static String strEmail()
     {
+        /*
         String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
         int nLen = random.nextInt(10);
         while (5 > nLen)
@@ -123,6 +124,8 @@ public class BuildInFuncs
         
         String saltStr = salt.toString();
         return (saltStr + "@" + Data.email[random.nextInt(Data.email.length - 1)]);
+        */
+         return "iii@gmail.com";
     }
     
     public static String strCompany()
@@ -317,22 +320,38 @@ public class BuildInFuncs
         return strResult;
     }
     
+    /**
+     * @param nType 資料產生的方式,0 表示只有"zh" 跟 "other", "zh"出現的機率為97％,1 為隨機抓取各國語系代碼
+     * @return 回傳語系代碼
+     */
     public static String strLanguage(Integer nType)
     {
-        String strResult = "other";//Data.language[random.nextInt(Data.language.length - 1)];
-        int[] nbf = BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.97);
+        String strResult;
+        int npoint = 0;
         
-        System.out.println("nbf=" + Arrays.toString(nbf));
-    
-        int npoint = nbf[0];
-        
-        switch (npoint)
+        switch (nType)
         {
+            case 0:
+                strResult = "other";
+                npoint = BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.97)[0];
+                if (1 == npoint)
+                {
+                    strResult = "zh";
+                }
+                break;
             case 1:
-                strResult = "zh";
+                strResult = Data.language[random.nextInt(Data.language.length - 1)];
+                break;
+            default:
+                strResult = "";
                 break;
         }
         return strResult;
+    }
+    
+    public static int intLoginStatus()
+    {
+        return BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.7)[0];
     }
     // public static String
     /*

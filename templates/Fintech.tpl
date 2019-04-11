@@ -1,5 +1,4 @@
 {
-      "Account":{
            "中文姓": "$Var{surname}=$Func{strSurname()}",
            "中文名": "$Var{firstname}=$Func{strFirstName()}",
            "中文姓名": "$Var{surname}$Var{firstname}",
@@ -33,12 +32,11 @@
            "region" : "$Func{strRegion(0)}",
            "city" : "$Func{strTaiwanCity()}",
            "os" : "$Func{strOS(0)}",
-           "os_version" : $Dic{android_version},
-           "subscript_status" : $Dic{subscript_status},
+           "os_version" : "$Dic{android_version}",
+           "subscript_status" : "$Dic{subscript_status}",
            "manufaturer" : "$Dic{manufaturer}",
            "model" : "$Dic{model}",
            "language" : "$Func{strLanguage(0)}",
-           "login_status" : $Dic{login_status}
-      }
- 
+           "login_status" : "$Func{intLoginStatus()}"
 }
+ 
