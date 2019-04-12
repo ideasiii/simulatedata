@@ -18,14 +18,15 @@ public class simulatedata
         if (templates.isDirectory())
         {
             File[] tplFiles = templates.listFiles();
+            assert tplFiles != null;
             for (File tplFile : tplFiles)
             {
                 if (tplFile.isFile())
                 {
-                    String tpl = FileUtils.readFileToString(tplFile);
+                    String tpl = FileUtils.readFileToString(tplFile, "UTF8");
                     String tplName = tplFile.getName();
                     System.out.println("Template Name: " + tplName + ", ===================");
-                    TemplateAnalyzer testTplAnalyzer = new TemplateAnalyzer(tplName, tpl);
+                    TemplateAnalyzer testTplAnalyzer = new TemplateAnalyzer(tpl);
                     String abc = testTplAnalyzer.analyse();
                     System.out.println(abc);
                     System.out.println("Template Name: " + tplName + ", ==================");
@@ -33,8 +34,8 @@ public class simulatedata
                     
                     JSONObject jsonObject = new JSONObject(abc);
                     Iterator<String> sIterator = jsonObject.keys();
-                    String strFields = null;
-                    ArrayList<String> listField = new ArrayList<String>();
+                    StringBuilder strFields = null;
+                    ArrayList<String> listField = new ArrayList<>();
                     String key;
                     while (sIterator.hasNext())
                     {
@@ -46,58 +47,53 @@ public class simulatedata
                         //System.out.println(key + " : " + value);
                         if (null == strFields)
                         {
-                            strFields = key;
+                            strFields = new StringBuilder(key);
                         }
                         else
                         {
-                            strFields += ("," + key);
+                            strFields.append(",").append(key);
                         }
                     }
                     System.out.println(strFields);
-                    String value = null;
-                    String strValues = "";
+                    String value;
+                    StringBuilder strValues = new StringBuilder();
                     for (int i = 0; i < listField.size(); ++i)
                     {
                         value = jsonObject.getString(listField.get(i));
                         if (0 == i)
                         {
-                            strValues = value;
+                            strValues = new StringBuilder(value);
                         }
                         else
                         {
-                            strValues += ("," + value);
+                            strValues.append(",").append(value);
                         }
                     }
                     System.out.println(strValues);
                     int nCount = 0;
-                    while (true)
+                    do
                     {
                         
-                        TemplateAnalyzer testTplAnalyzer2 = new TemplateAnalyzer(tplName, tpl);
+                        TemplateAnalyzer testTplAnalyzer2 = new TemplateAnalyzer(tpl);
                         abc = testTplAnalyzer2.analyse();
-                        testTplAnalyzer2 = null;
-                       
+                        
                         jsonObject = new JSONObject(abc);
                         for (int i = 0; i < listField.size(); ++i)
                         {
                             value = jsonObject.getString(listField.get(i));
                             if (0 == i)
                             {
-                                strValues = value;
+                                strValues = new StringBuilder(value);
                             }
                             else
                             {
-                                strValues += ("," + value);
+                                strValues.append(",").append(value);
                             }
                         }
                         
                         System.out.println(strValues);
                         ++nCount;
-                        if (1000 < nCount)
-                        {
-                            break;
-                        }
-                    }
+                    } while (10 >= nCount);
                     System.out.println("Finish");
                 }
             }

@@ -20,7 +20,7 @@ public class MultinominalDistributionFuncs {
             mbProbSetting.setElement(n,1,p); //x控制生成數量
             distribMultiNominal.setParams(n, mbProbSetting); //n控制類別數量
             ArrayList randomValueResult = (ArrayList) distribMultiNominal.sampleVal();
-            System.out.println("randomValueResult: " + randomValueResult);
+           // System.out.println("randomValueResult: " + randomValueResult);
             for (int j= 0; j <= n-1; j++){
 //                System.out.println(randomValueResult.get(j));
                 int randomValue = (int) randomValueResult.get(j);

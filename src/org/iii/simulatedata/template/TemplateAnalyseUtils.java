@@ -17,9 +17,6 @@ class TemplateAnalyseUtils
     
     private static final String PRE_VAR = "$Var{";
     
-    private static char eq = 61; // = ASCII
-    private static char closeBrace = 125; // } ASCII
-    
     private static final Random r = new Random();
     
     private static void analyse(String template, int startIndex, int type, int itemIndex,
@@ -28,12 +25,16 @@ class TemplateAnalyseUtils
         boolean hasFunc = template.contains(PRE_FUNC);
         boolean hasDic = template.contains(PRE_DIC);
         boolean hasVar = template.contains(PRE_VAR);
+        // = ASCII
+        char eq = 61;
+        // } ASCII
+        char closeBrace = 125;
         if (hasFunc && type == 1)
         {
             int funcIndex = template.indexOf(PRE_FUNC);
             int funcEndIndex = template.indexOf("}", funcIndex);
             String func = template.substring(funcIndex, funcEndIndex + 1);
-            String funcKey = "F" + formatNumber("" + itemIndex, 3) + "-" + func;
+            String funcKey = "F" + formatNumber("" + itemIndex) + "-" + func;
             tplVar.put(funcKey, func);
             
             if (hasVar)
@@ -44,7 +45,7 @@ class TemplateAnalyseUtils
                     if (varIndex < funcIndex)
                     {
                         String varName = template.substring(varIndex, funcIndex - 1);
-                        String varKey = "V" + formatNumber("" + itemIndex, 3) + "-" + varName;
+                        String varKey = "V" + formatNumber("" + itemIndex) + "-" + varName;
                         tplVar.put(varKey, funcKey);
                     }
                 }
@@ -59,7 +60,7 @@ class TemplateAnalyseUtils
             int dicIndex = template.indexOf(PRE_DIC);
             int dicEndIndex = template.indexOf("}", dicIndex);
             String dic = template.substring(dicIndex, dicEndIndex + 1);
-            String dicKey = "D" + formatNumber("" + itemIndex, 3) + "-" + dic;
+            String dicKey = "D" + formatNumber("" + itemIndex) + "-" + dic;
             tplVar.put(dicKey, dic);
             
             if (hasVar)
@@ -70,7 +71,7 @@ class TemplateAnalyseUtils
                     if (varIndex < dicIndex)
                     {
                         String varName = template.substring(varIndex, dicIndex - 1);
-                        String varKey = "V" + formatNumber("" + itemIndex, 3) + "-" + varName;
+                        String varKey = "V" + formatNumber("" + itemIndex) + "-" + varName;
                         
                         tplVar.put(varKey, dicKey);
                     }
@@ -83,9 +84,9 @@ class TemplateAnalyseUtils
         
     }
     
-    public static Map<String, String> extractVar(String template)
+    static Map<String, String> extractVar(String template)
     {
-        Map<String, String> tplVar = new TreeMap<String, String>();
+        Map<String, String> tplVar = new TreeMap<>();
         int itmeIndex = 0;
         boolean hasFunc = template.contains(PRE_FUNC);
         boolean hasDic = template.contains(PRE_DIC);
@@ -100,7 +101,7 @@ class TemplateAnalyseUtils
         return tplVar;
     }
     
-    public static String executeFunc(String func) throws Exception
+    private static String executeFunc(String func) throws Exception
     {
         if (func == null)
         {
@@ -159,7 +160,7 @@ class TemplateAnalyseUtils
         return result;
     }
     
-    public static String searchDic(String dic) throws Exception
+    private static String searchDic(String dic) throws Exception
     {
         if (dic == null)
         {
@@ -185,13 +186,13 @@ class TemplateAnalyseUtils
         return result;
     }
     
-    public static Map<String, String> execute(Map<String, String> funcAndDic) throws Exception
+    static Map<String, String> execute(Map<String, String> funcAndDic) throws Exception
     {
         if (funcAndDic == null)
         {
             return null;
         }
-        Map<String, String> tmpMap = new TreeMap<String, String>();
+        Map<String, String> tmpMap = new TreeMap<>();
         
         for (Entry<String, String> entry : funcAndDic.entrySet())
         {
@@ -232,7 +233,7 @@ class TemplateAnalyseUtils
         return tmpMap;
     }
     
-    public static String replace(String template, Map<String, String> funcAndDic)
+    static String replace(String template, Map<String, String> funcAndDic)
     {
         if (funcAndDic == null)
         {
@@ -245,9 +246,9 @@ class TemplateAnalyseUtils
             String[] items = key.split("-");
             
             String replaceStr = items[1].replaceAll("\\$", "\\\\\\$").replaceAll("\\{",
-                    "\\\\\\{").replaceAll("\\}", "\\\\\\}").replaceAll("\\(", "\\\\\\(").replaceAll("\\)", "\\\\\\)");
+                    "\\\\\\{").replaceAll("}", "\\\\\\}").replaceAll("\\(", "\\\\\\(").replaceAll("\\)", "\\\\\\)");
             value = value.replaceAll("\\$", "\\\\\\$").replaceAll("\\{", "\\\\\\{").replaceAll(
-                    "\\}", "\\\\\\}").replaceAll("\\(", "\\\\\\(").replaceAll("\\)", "\\\\\\)");
+                    "}", "\\\\\\}").replaceAll("\\(", "\\\\\\(").replaceAll("\\)", "\\\\\\)");
             
             if (items[1].startsWith(PRE_VAR))
             {
@@ -262,46 +263,21 @@ class TemplateAnalyseUtils
             
         }
         funcAndDic.clear();
-        funcAndDic = null;
         
         return template;
     }
     
-    public static String formatNumber(String num, int n)
+    private static String formatNumber(String num)
     {
         if (num != null)
         {
-            while (num.length() < n)
+            StringBuilder numBuilder = new StringBuilder(num);
+            while (numBuilder.length() < 3)
             {
-                num = "0" + num;
+                numBuilder.insert(0, "0");
             }
+            num = numBuilder.toString();
         }
         return num;
     }
-/*
-	public static void main(String[] args) throws Exception {
-		Dictionary.loadDics();
-		String tpl = new String(
-				"My name is $Dic{name}, His name is $Dic{name},My age is $Func{intRand(18,30)},
-				Now is $Func{timestamp()}, This is Test $Func{intRand()}, It is last
-				$Func{doubleRand()}");
-		Map<String, String> tplVar = extractVar(tpl);
-
-		System.out.println("============begin==============================");
-		System.out.println(tpl);
-		System.out.println("");
-		for (Entry<String, String> entry : tplVar.entrySet()) {
-			System.out.println("key==> " + entry.getKey() + ", value==> " + entry.getValue());
-		}
-
-		tplVar = execute(tplVar);
-		System.out.println("============execute============================");
-		for (Entry<String, String> entry : tplVar.entrySet()) {
-			System.err.println("key==> " + entry.getKey() + ", value==> " + entry.getValue());
-		}
-		tpl = replace(tpl, tplVar);
-		System.out.println(tpl);
-		System.out.println("============finish================================");
-	}
-	*/
 }
