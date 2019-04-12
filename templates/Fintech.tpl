@@ -2,7 +2,7 @@
            "中文姓": "$Var{surname}=$Func{strSurname()}",
            "中文名": "$Var{firstname}=$Func{strFirstName()}",
            "中文姓名": "$Var{surname}$Var{firstname}",
-           "英文姓名": "$Func{strEnglistNameMan()}",
+           "英文姓名": "$Func{strEnglishName()}",
            "別名": "$Func{strName()}",
            "性別": "$Var{s}=$Dic{sex}",
            "婚姻狀態": "$Dic{marital}",

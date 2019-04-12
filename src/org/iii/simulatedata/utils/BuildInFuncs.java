@@ -2,8 +2,6 @@ package org.iii.simulatedata.utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
@@ -16,6 +14,9 @@ import org.sqlite.SQLiteDataSource;
 
 public class BuildInFuncs
 {
+    private static int surNameIndex = 0;
+    private static int name1Index = 0;
+    private static int name2Index = 0;
     private static Random random = new Random();
     
     public static long timestamp()
@@ -89,12 +90,53 @@ public class BuildInFuncs
     
     public static String strSurname()
     {
-        return Data.surname[random.nextInt(Data.surname.length - 1)];
+        surNameIndex = random.nextInt(Data.surname.length - 1);
+        return Data.surname[surNameIndex];
     }
     
     public static String strFirstName()
     {
-        return (Data.word[random.nextInt(Data.word.length - 1)] + Data.word[random.nextInt(Data.word.length - 1)]);
+        name1Index = random.nextInt(Data.word.length - 1);
+        name2Index = random.nextInt(Data.word.length - 1);
+        return (Data.word[name1Index] + Data.word[name2Index]);
+    }
+    
+    public static String strEnglishName()
+    {
+        String surname;
+        String name1;
+        String name2;
+        String englishName;
+        
+        if (0 != surNameIndex)
+        {
+            surname = Data.esurname[surNameIndex];
+            surNameIndex = 0;
+        }
+        else
+        {
+            surname = Data.esurname[random.nextInt(Data.esurname.length - 1)];
+        }
+        
+        if (0 != name1Index)
+        {
+            name1 = Data.eword[name1Index];
+        }
+        else
+        {
+            name1 = Data.eword[random.nextInt(Data.eword.length - 1)];
+        }
+        
+        if (0 != name2Index)
+        {
+            name2 = Data.eword[name2Index];
+        }
+        else
+        {
+            name2 = Data.eword[random.nextInt(Data.eword.length - 1)];
+        }
+        
+        return String.format("%s %s %s", name1, name2, surname);
     }
     
     public static String strName()
