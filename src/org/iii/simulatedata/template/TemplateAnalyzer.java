@@ -24,6 +24,7 @@ public class TemplateAnalyzer
         catch (Exception e)
         {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         
         return TemplateAnalyseUtils.replace(template, tplVar);

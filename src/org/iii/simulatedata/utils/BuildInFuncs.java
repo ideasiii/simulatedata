@@ -102,6 +102,11 @@ public class BuildInFuncs
         return (Data.word[name1Index] + Data.word[name2Index]);
     }
     
+    public static String strChineseName()
+    {
+        return String.format("%s%s", strSurname(), strFirstName());
+    }
+    
     public static String strEnglishName()
     {
         String surname;
@@ -140,16 +145,11 @@ public class BuildInFuncs
         return String.format("%s %s %s", name1, name2, surname);
     }
     
-    public static String strName()
-    {
-        return (strSurname() + strFirstName());
-    }
-    
     public static String strEmail()
     {
-        /*
-        String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
-        int nLen = random.nextInt(10);
+        
+        String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890";
+        int nLen = random.nextInt(9) + 1;
         while (5 > nLen)
         {
             nLen = nLen * 2;
@@ -165,8 +165,8 @@ public class BuildInFuncs
         
         String saltStr = salt.toString();
         return (saltStr + "@" + Data.email[random.nextInt(Data.email.length - 1)]);
-        */
-        return "iii@gmail.com";
+        
+        
     }
     
     public static String strCompany()
@@ -195,6 +195,59 @@ public class BuildInFuncs
             ++nSize;
         }
         return salt.toString();
+    }
+    
+    public static String strPhone(Integer nType, Integer nLocal)
+    {
+        String strResult;
+        String strNumber = "1234567890";
+        int nSize = 0;
+        StringBuilder salt = new StringBuilder();
+        int local = nLocal;
+        if (0 == local)
+        {
+            local = random.nextInt(6) + 2;
+        }
+        
+        while (nSize < 8)
+        {
+            salt.append(strNumber.charAt(random.nextInt(strNumber.length() - 1)));
+            ++nSize;
+        }
+        switch (nType)
+        {
+            case 0:
+                strResult = String.format("%02d-%s", local, salt.toString());
+                break;
+            case 1:
+                strResult = String.format("(%02d)%s", local, salt.toString());
+                break;
+            default:
+                strResult = String.format("%s", salt.toString());
+                break;
+        }
+        return strResult;
+    }
+    
+    public static String stdBuilding()
+    {
+        String[] listBuilding = {"電梯大廈", "公寓", "別墅"};
+        return listBuilding[random.nextInt(listBuilding.length - 1)];
+    }
+    
+    public static String strJob()
+    {
+        return Data.job[random.nextInt(Data.job.length - 1)];
+    }
+    
+    public static String strJobTitle()
+    {
+        return Data.jobTitle[random.nextInt(Data.jobTitle.length - 1)];
+    }
+    
+    public static String strTransferNote()
+    {
+        
     }
     
     public static String strCountry()
@@ -239,6 +292,21 @@ public class BuildInFuncs
         String strB = String.format("%d/%d/%d", nYear, nMonth, nDay);
         return strB;
     }
+    
+    public static String strTimeInMillis()
+    {
+        return String.format("%d", Calendar.getInstance().getTimeInMillis());
+    }
+    
+    public static String strTimeInFormat()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return String.format("%d%02d%02d%02d%02d%02d", calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND));
+    }
+    
     
     public static String strStreet()
     {
@@ -287,11 +355,12 @@ public class BuildInFuncs
         
         switch (nType)
         {
-            case 0:
-                strResult = strPrex + salt.toString(); // 09xxxxxxxx
-                break;
             case 1:
                 strResult = "886" + (strPrex + salt.toString()).substring(1); // 886912345678
+                break;
+            case 2:
+                strResult = String.format("%s-%s-%s", strPrex, salt.substring(0, 3),
+                        salt.substring(3, 6));
                 break;
             default:
                 strResult = strPrex + salt.toString();

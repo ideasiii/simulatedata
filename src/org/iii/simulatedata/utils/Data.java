@@ -335,4 +335,10 @@ abstract class Data
     
     final static String[] os = {"Android", "iOS", "Windows", "Linux", "Unix", "Symbian", "Ubuntu"
 			, "Blackberry", "Firefox"};
+    
+    final static String[] job = {"中國信託商業銀行", "製造業", "電子暨資訊相關產業", "批發零售業", "水、電、燃氣(油)供應",
+			"通訊、運輸及倉儲服務業", "金融相關產業", "建築營造及不動產相關業", "法律、會計及其他專職服務業", "教育業", "政府機關及公營事業",
+			"醫療、保健、生技業", "大眾傳播", "藝文及休閒娛樂服務業", "住宿、餐飲等其他服務業", "非營利組織", "其他"};
+    
+    final static String[] jobTitle = {"白領職員","籃領職員"};
 }

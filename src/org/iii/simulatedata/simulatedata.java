@@ -9,6 +9,7 @@ import java.util.Iterator;
 import org.iii.simulatedata.dic.Dictionary;
 import org.iii.simulatedata.template.TemplateAnalyzer;
 import org.apache.commons.io.FileUtils;
+import org.iii.simulatedata.utils.BuildInFuncs;
 import org.json.*;
 
 public class simulatedata
@@ -35,7 +36,8 @@ public class simulatedata
                     System.out.println("Template Name: " + tplName + ", ==================");
                     System.out.println();
                     
-                    PrintWriter pw = new PrintWriter(new FileWriter(tplName + ".txt"));
+                    PrintWriter pw =
+                            new PrintWriter(new FileWriter("out/" + tplName + "_" + BuildInFuncs.strTimeInFormat() + ".csv"));
                     
                     JSONObject jsonObject = new JSONObject(abc);
                     Iterator<String> sIterator = jsonObject.keys();
@@ -102,7 +104,7 @@ public class simulatedata
                         System.out.println(strValues);
                         pw.write(strValues.toString() + "\n");
                         ++nCount;
-                    } while (100 >= nCount);
+                    } while (10 > nCount);
                     System.out.println("Finish");
                     pw.close();
                 }
