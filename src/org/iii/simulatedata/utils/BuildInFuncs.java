@@ -17,6 +17,7 @@ public class BuildInFuncs
     private static int surNameIndex = 0;
     private static int name1Index = 0;
     private static int name2Index = 0;
+    private static String m_strSex = "男";
     private static Random random = new Random();
     
     public static long timestamp()
@@ -673,12 +674,12 @@ public class BuildInFuncs
         return strResult;
     }
     
-    // public static String
-    /*
-     * public static String strId() { String strId = "A123456789"; int idnum[] =
-     * { 10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25,
-     * 26, 27, 28, 29, 32, 30, 31, 33 };
-     *
-     * return strId; }
-     */
+    public static String strID()
+    {
+        String strResult;
+        IDMaker idMaker = new IDMaker();
+        strResult = idMaker.random();
+        return strResult;
+    }
+    
 }

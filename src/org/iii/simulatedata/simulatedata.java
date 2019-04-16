@@ -1,6 +1,8 @@
 package org.iii.simulatedata;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,6 +25,7 @@ public class simulatedata
             {
                 if (tplFile.isFile())
                 {
+                    
                     String tpl = FileUtils.readFileToString(tplFile, "UTF8");
                     String tplName = tplFile.getName();
                     System.out.println("Template Name: " + tplName + ", ===================");
@@ -31,6 +34,8 @@ public class simulatedata
                     System.out.println(abc);
                     System.out.println("Template Name: " + tplName + ", ==================");
                     System.out.println();
+                    
+                    PrintWriter pw = new PrintWriter(new FileWriter(tplName + ".txt"));
                     
                     JSONObject jsonObject = new JSONObject(abc);
                     Iterator<String> sIterator = jsonObject.keys();
@@ -55,6 +60,8 @@ public class simulatedata
                         }
                     }
                     System.out.println(strFields);
+                    assert strFields != null;
+                    pw.write(strFields.toString() + "\n");
                     String value;
                     StringBuilder strValues = new StringBuilder();
                     for (int i = 0; i < listField.size(); ++i)
@@ -70,6 +77,7 @@ public class simulatedata
                         }
                     }
                     System.out.println(strValues);
+                    pw.write(strValues.toString() + "\n");
                     int nCount = 0;
                     do
                     {
@@ -92,9 +100,11 @@ public class simulatedata
                         }
                         
                         System.out.println(strValues);
+                        pw.write(strValues.toString() + "\n");
                         ++nCount;
-                    } while (10 >= nCount);
+                    } while (100 >= nCount);
                     System.out.println("Finish");
+                    pw.close();
                 }
             }
         }
