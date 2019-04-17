@@ -49,13 +49,12 @@ public class MultinominalDistributionFuncs {
         return allRandomValueResultRev;
     }
 
-    public static void main(String[] args){
-        double[] p  = {0.2,0.2,0.2,0.2,0.2};
-        ArrayList result = (ArrayList) multinominalRandomGenerator(1, 10, p); //multinominal dist
-//        System.out.println(result.size());
-//        Collections.shuffle((List<?>) result); //shuffle重組
-        System.out.println(result);
-
-    }
+//    public static void main(String[] args){
+//        double[] p  = {0.2,0.2,0.2,0.2,0.2};
+//        ArrayList result = (ArrayList) multinominalRandomGenerator(1, 10, p); //multinominal dist
+////        System.out.println(result.size());
+////        Collections.shuffle((List<?>) result); //shuffle重組
+//        System.out.println(result);
+//    }
 
 }

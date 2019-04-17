@@ -1,9 +1,9 @@
 {
-      "Account":{
            "中文姓": "$Var{surname}=$Func{strSurname()}",
            "中文名": "$Var{firstname}=$Func{strFirstName()}",
            "中文姓名": "$Var{surname}$Var{firstname}",
-           "英文姓名": "$Func{strEnglistNameMan()}",
+           "英文姓名": "$Func{strEnglishName()}",
+           "身分證字號": "$Func{strID()}",
            "別名": "$Func{strName()}",
            "性別": "$Var{s}=$Dic{sex}",
            "婚姻狀態": "$Dic{marital}",
@@ -27,18 +27,25 @@
            "是否申請金融卡非約定轉帳": "$Dic{transfer}",
            "身分證發證地點": "$Var{town}",
            "統一編號": "$Func{strUniform()}",
-           "uid" : "$Func{strUUID(1)}",
+           "uuid" : "$Func{strUUID(1)}",
            "adid" : "$Func{strUUID(0)}",
            "num" : "$Func{strMobilePhone(1)}",
-           "region" : "$Func{strRegion(0)}",
+           "region" : "$Func{strRegion()}",
            "city" : "$Func{strTaiwanCity()}",
            "os" : "$Func{strOS(0)}",
-           "os_version" : $Dic{android_version},
-           "subscript_status" : $Dic{subscript_status},
-           "manufaturer" : "$Dic{manufaturer}",
+           "os_version" : "$Dic{android_version}",
+           "subscript_status" : "$Func{subscriptStatus()}",
+           "manufaturer" : "$Func{strManufaturer()}",
            "model" : "$Dic{model}",
            "language" : "$Func{strLanguage(0)}",
-           "login_status" : $Dic{login_status}
-      }
- 
+           "login_status" : "$Func{intLoginStatus()}",
+           "app_install_time" : "$Func{strAppInstallTime()}",
+           "query_num_country_TW" : "$Func{strRegion()}",
+           "is_contact" : "$Func{isContact()}",
+           "query_type" : "$Func{queryType()}",
+           "biz_category" : "$Func{bizCategory()}",
+           "is_spam" : "$Func{isSpam()}",
+           "spam_category" : "$Func{spamCategory()}"
+
 }
+ 

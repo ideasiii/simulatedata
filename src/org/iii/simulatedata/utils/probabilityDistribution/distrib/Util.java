@@ -41,10 +41,10 @@ public class Util {
   public static void initRandom(boolean randomize) {
     if (randomize) {
       long seed = System.currentTimeMillis();
-      System.out.println("Using clock time " + seed + " as random seed.");
+     // System.out.println("Using clock time " + seed + " as random seed.");
       rand = new Random(seed);
     } else {
-      System.out.println("Using fixed random seed for repeatability.");
+     // System.out.println("Using fixed random seed for repeatability.");
       rand = new Random(0xad527c2b74e10cb3L);
     }
   }

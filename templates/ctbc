@@ -1,0 +1,37 @@
+{
+
+           "中文姓名": "$Func{strChineseName()}",
+           "英文姓名": "$Func{strEnglishName()}",
+           "身分證字號": "$Func{strID()}",
+           "手機號碼": "$Func{strMobilePhone(2)}",
+           "電話號碼": "$Func{strPhone(0,2)}",
+           "email": "$Func{strEmail()}",
+           "地址": "$Func{strStreet()}",
+           "建物類型": "$Func{stdBuilding()}",
+           "職業": "$Func{strJob()}",
+           "職稱": "$Func{strJobTitle()}",
+           "轉帳備註": "",
+
+
+
+           "性別": "$Var{s}=$Dic{sex}",
+           "婚姻狀態": "$Dic{marital}",
+           "子女數": "$Dic{child}",
+           "服務機構": "$Dic{job}",
+           "最高學歷": "$Dic{education}",
+           "年收入": "$Dic{salary}",
+           "資金來源": "$Dic{source}",
+           "任職公司": "$Func{strCompany()}",
+           "公司電話": "$Func{strCompanyPhone()}",
+           "國籍": "$Dic{country}",
+           "語系": "$Func{strLocale()}",
+           "出生地": "$Var{town}=$Dic{town}",
+           "出生日期": "$Func{strBirthday()}",
+           "帳戶用途": "$Dic{usage}",
+           "抵押貸款額度": "$Dic{mortgage}",
+           "是否申請金融卡非約定轉帳": "$Dic{transfer}",
+           "身分證發證地點": "$Var{town}",
+           "統一編號": "$Func{strUniform()}",
+
+}
+
