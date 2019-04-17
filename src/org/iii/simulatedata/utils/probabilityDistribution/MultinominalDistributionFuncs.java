@@ -30,7 +30,7 @@ public class MultinominalDistributionFuncs {
             int mbValue = (int) randomValueResult.get(i-1);
             for (int j = 0; j <= mbValue; j++){
                 if (j != 0){
-                    randomValueResultToSampleData.add(i);
+                    randomValueResultToSampleData.add(i-1);
                 }
             }
 //            System.out.println(randomValueResultToSampleData);
