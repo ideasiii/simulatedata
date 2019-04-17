@@ -247,7 +247,8 @@ public class BuildInFuncs
     
     public static String strTransferNote()
     {
-        
+        String strResult;
+        return strResult;
     }
     
     public static String strCountry()

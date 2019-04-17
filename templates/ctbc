@@ -10,6 +10,7 @@
            "建物類型": "$Func{stdBuilding()}",
            "職業": "$Func{strJob()}",
            "職稱": "$Func{strJobTitle()}",
+           "轉帳備註": "",
 
 
 
