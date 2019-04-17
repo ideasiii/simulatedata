@@ -14,7 +14,7 @@ public class multinominalProbSetting implements MatrixLib {
 
     @Override
     public void setElement(int x, int y, double[] val) {
-        gx = x;
+        gx = val.length;
         gy = y;
         gval = new double[x][y];
         for (int i = 0; i < val.length; i++){

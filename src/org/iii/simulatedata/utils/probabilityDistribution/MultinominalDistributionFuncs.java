@@ -12,36 +12,50 @@ public class MultinominalDistributionFuncs {
     public static Object multinominalRandomGenerator(int r, int n, double[] p){
 
         distribMultiNominal = new Multinomial();
-        Util.initRandom(true);
-        ArrayList allRandomValueResult = new ArrayList<>();
-        for (int i=0; i <= n; i++){
-            multinominalProbSetting mbProbSetting = new multinominalProbSetting(); //初始化機率矩陣
+        Util.initRandom(true); //設定是否產生隨機結果
+        multinominalProbSetting mbProbSetting = new multinominalProbSetting(); //初始化機率矩陣
 //            double[] probVector = {0.2,0.2,0.2,0.2,0.2}; //注意機率加總要等於1
-            mbProbSetting.setElement(n,1,p); //x控制生成數量
-            distribMultiNominal.setParams(n, mbProbSetting); //n控制類別數量
-            ArrayList randomValueResult = (ArrayList) distribMultiNominal.sampleVal();
-            System.out.println("randomValueResult: " + randomValueResult);
-            for (int j= 0; j <= n-1; j++){
-//                System.out.println(randomValueResult.get(j));
-                int randomValue = (int) randomValueResult.get(j);
-                allRandomValueResult.add(randomValue);
+        mbProbSetting.setElement(n,1,p); //x的位置控制矩陣向量長度(目前放p的長度)
+        distribMultiNominal.setParams(n, mbProbSetting); //n控制生成總個數
+        ArrayList randomValueResult = (ArrayList) distribMultiNominal.sampleVal();
+//        System.out.println("randomValueResult: " + randomValueResult);
+
+        /*
+        針對multinominal distribution random的結果轉成樣本點
+         */
+        ArrayList randomValueResultToSampleData = new ArrayList();
+        for(int i = 1; i <= p.length; i++){
+//            System.out.println(i);
+//            System.out.println(randomValueResult.get(i-1));
+            int mbValue = (int) randomValueResult.get(i-1);
+            for (int j = 0; j <= mbValue; j++){
+                if (j != 0){
+                    randomValueResultToSampleData.add(i);
+                }
             }
+//            System.out.println(randomValueResultToSampleData);
         }
+        Collections.shuffle((List<?>) randomValueResultToSampleData); //針對randomValueResultToSampleData shuffle重組
+
+        /*
+        針對不同的r進行抽取
+         */
         ArrayList allRandomValueResultRev = new ArrayList<>();
         for (int i=0; i<=r-1; i++){
-            allRandomValueResultRev.add(allRandomValueResult.get(i));
+            allRandomValueResultRev.add(randomValueResultToSampleData.get(i));
         }
 //        System.out.println("allRandomValueResult: " + allRandomValueResultRev);
+
         return allRandomValueResultRev;
     }
 
-//    public static void main(String[] args){
-//        double[] p  = {0.2,0.2,0.2,0.2,0.2};
-//        ArrayList result = (ArrayList) multinominalRandomGenerator(20, 5, p); //multinominal dist
-////        System.out.println(result.size());
+    public static void main(String[] args){
+        double[] p  = {0.2,0.2,0.2,0.2,0.2};
+        ArrayList result = (ArrayList) multinominalRandomGenerator(1, 10, p); //multinominal dist
+//        System.out.println(result.size());
 //        Collections.shuffle((List<?>) result); //shuffle重組
-//        System.out.println(result);
-//
-//    }
+        System.out.println(result);
+
+    }
 
 }
