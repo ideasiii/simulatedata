@@ -10,7 +10,14 @@
            "建物類型": "$Func{stdBuilding()}",
            "職業": "$Func{strJob()}",
            "職稱": "$Func{strJobTitle()}",
-           "轉帳備註": "",
+           "轉帳備註": "$Func{strTransferNote()}",
+           "消費商戶名稱": "$Func{strMCC()}",
+           "消費金額 (流量)": "$Func{strShopingInfo()}",
+           "存款金額": "$Func{strSaveMoney()}",
+           "年收入": "$Func{strIncome()}",
+           "使用ATM次數": "$Func{strATM()}",
+           "三個月登入網銀次數": "$Func{strLoginBank()}",
+           "登入網銀時間": "",
 
 
 
@@ -19,7 +26,6 @@
            "子女數": "$Dic{child}",
            "服務機構": "$Dic{job}",
            "最高學歷": "$Dic{education}",
-           "年收入": "$Dic{salary}",
            "資金來源": "$Dic{source}",
            "任職公司": "$Func{strCompany()}",
            "公司電話": "$Func{strCompanyPhone()}",

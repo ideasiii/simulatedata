@@ -46,12 +46,9 @@ public class simulatedata
                     String key;
                     while (sIterator.hasNext())
                     {
-                        // Get key
                         key = sIterator.next();
                         listField.add(key);
-                        // get value by key, value is JSONObject or JSONArray
-                        //String value = jsonObject.getString(key);
-                        //System.out.println(key + " : " + value);
+                       
                         if (null == strFields)
                         {
                             strFields = new StringBuilder(key);
@@ -66,6 +63,7 @@ public class simulatedata
                     pw.write(strFields.toString() + "\n");
                     String value;
                     StringBuilder strValues = new StringBuilder();
+                    /*
                     for (int i = 0; i < listField.size(); ++i)
                     {
                         value = jsonObject.getString(listField.get(i));
@@ -80,6 +78,7 @@ public class simulatedata
                     }
                     System.out.println(strValues);
                     pw.write(strValues.toString() + "\n");
+                     */
                     int nCount = 0;
                     do
                     {
@@ -104,7 +103,7 @@ public class simulatedata
                         System.out.println(strValues);
                         pw.write(strValues.toString() + "\n");
                         ++nCount;
-                    } while (10 > nCount);
+                    } while (1000 >= nCount);
                     System.out.println("Finish");
                     pw.close();
                 }

@@ -245,10 +245,159 @@ public class BuildInFuncs
         return Data.jobTitle[random.nextInt(Data.jobTitle.length - 1)];
     }
     
+    /**
+     * n=10,p1(null)=0.5,p2~p10=0.055
+     * 購物(0.055)/親友轉帳(0.055)/還款(0.055)/房租(0.055)/卡費(0.055)/保費(0.055)/生活(水電瓦斯電費電信)(0.055)/投資(0
+     * .055)/其它(0.055)/null(0.5)
+     *
+     * @return
+     */
     public static String strTransferNote()
     {
         String strResult;
+        double[] p = {0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.5};
+        ArrayList result =
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 10, p);
+        
+        int nIndex = (int) result.get(0);
+        switch (nIndex)
+        {
+            case 0:
+                strResult = "購物";
+                break;
+            case 1:
+                strResult = "親友轉帳";
+                break;
+            case 2:
+                strResult = "還款";
+                break;
+            case 3:
+                strResult = "房租";
+                break;
+            case 4:
+                strResult = "卡費";
+                break;
+            case 5:
+                strResult = "保費";
+                break;
+            case 6:
+                strResult = "生活(水電瓦斯電費電信)";
+                break;
+            case 7:
+                strResult = "投資";
+                break;
+            case 8:
+                strResult = "其它";
+                break;
+            default:
+                strResult = "";
+                break;
+            
+        }
         return strResult;
+    }
+    
+    /**
+     * MCC 8碼 前4制式 後4流水
+     *
+     * @return
+     */
+    public static String strMCC()
+    {
+        String strPreCode = Data.MCC[random.nextInt(Data.MCC.length - 1)];
+        String strBackCode = String.format("%04d", random.nextInt(9999));
+        return (strPreCode + strBackCode);
+    }
+    
+    /**
+     * YYYY/MM/DD(char(32))HH:MM(char(32))12345TWD
+     *
+     * @return "2018-01-25 19:50 12345TWD"
+     */
+    public static String strShopingInfo()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return String.format("%d-%02d-%02d %02d:%02d %dTWD", calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+                random.nextInt(99999));
+    }
+    
+    /**
+     * 存款金額
+     * min 10000
+     * 年收平均數60w
+     *
+     * @return "125365912345TWD"
+     */
+    public static String strSaveMoney()
+    {
+        int money = random.nextInt(666666);
+        if (10000 > money)
+        {
+            money += 10000;
+        }
+        return String.format("%dTWD", money);
+    }
+    
+    /**
+     * alpha=?
+     * min 10000, 年收平均數60w,
+     *
+     * @return
+     */
+    public static String strIncome()
+    {
+        int money = random.nextInt(666666);
+        if (10000 > money)
+        {
+            money += 10000;
+        }
+        return String.format("%dTWD", money);
+    }
+    
+    /**
+     * 使用ATM次數
+     * 0-100, 0 發生次數很高(95% 0-3), 0-inflated巴松分布
+     *
+     * @return
+     */
+    public static String strATM()
+    {
+        if (1 == BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.95)[0])
+        {
+            return "0";
+        }
+        return String.format("%d", random.nextInt(99) + 1);
+        
+    }
+    
+    /**
+     * 三個月登入網銀次數
+     * 0-90, 0:發生次數很高, 0-inflated巴松分布
+     *
+     * @return
+     */
+    public static String strLoginBank()
+    {
+        if (1 == BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.95)[0])
+        {
+            return "0";
+        }
+        return String.format("%d", random.nextInt(89) + 1);
+    }
+    
+    /**
+     * @return "2018/4/2 08:15:55 AM"
+     */
+    public static String strLoginBankWebTime()
+    {
+        String strTimeZ = "AM";
+        Calendar calendar = Calendar.getInstance();
+        return String.format("%d/%02d/%02d %02d:%02d:%02d %s", calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+                strTimeZ);
     }
     
     public static String strCountry()
@@ -551,9 +700,9 @@ public class BuildInFuncs
     public static String bizCategory()
     {
         String strResult;
-        double[] p = {0.12, 0.65, 0.07, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        double[] p = {0.12, 0.65, 0.07};
         ArrayList result =
-                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 22, p);
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 3, p);
         int nIndex = (int) result.get(0);
         switch (nIndex)
         {
