@@ -7,7 +7,7 @@
            "電話號碼": "$Func{strPhone(0,2)}",
            "email": "$Func{strEmail()}",
            "地址": "$Func{strStreet()}",
-           "建物類型": "$Func{stdBuilding()}",
+           "建物類型": "$Func{strBuilding()}",
            "職業": "$Func{strJob()}",
            "職稱": "$Func{strJobTitle()}",
            "轉帳備註": "$Func{strTransferNote()}",

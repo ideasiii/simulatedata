@@ -12,6 +12,8 @@ import org.iii.simulatedata.utils.probabilityDistribution.MultinominalDistributi
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 
+import static org.iii.simulatedata.utils.probabilityDistribution.ParetoDistFuncs.ParetoDistFuncs;
+
 public class BuildInFuncs
 {
     private static int surNameIndex = 0;
@@ -229,20 +231,138 @@ public class BuildInFuncs
         return strResult;
     }
     
-    public static String stdBuilding()
+    /**
+     * n=4,p1=0.9,p2=0.06,p3=0.02,p4=0.02
+     * 電梯大廈	90%
+     * 透天	6%
+     * 套房	2%
+     * 其他	2%
+     *
+     * @return
+     */
+    public static String strBuilding()
     {
-        String[] listBuilding = {"電梯大廈", "公寓", "別墅"};
-        return listBuilding[random.nextInt(listBuilding.length - 1)];
+        String strResult;
+        double[] p = {0.9, 0.06, 0.02, 0.02};
+        ArrayList result =
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 4, p);
+        int nIndex = (int) result.get(0);
+        switch (nIndex)
+        {
+            case 0:
+                strResult = "電梯大廈";
+                break;
+            case 1:
+                strResult = "透天";
+                break;
+            case 2:
+                strResult = "套房";
+                break;
+            default:
+                strResult = "其他";
+                break;
+        }
+        
+        return strResult;
     }
+    
+    /**
+     * n=16,p1=0.2,p2=0.12,p3=0.07,p4=0.1,p5=0.05,p6=0.09,p7=0.03,p8=0.08,p9=0.07,p10=0.06,p11=0
+     * .01,p12=0.04,p13=0.03,p14=0.02,p15=0.01,p16=0.02
+     * 軍公教	20%
+     * 政府／公營事業	12%
+     * 軍／警／消防	7%
+     * 學校／補習班	10%
+     * 醫療／專業事務所	5%
+     * 金融／保險	9%
+     * 製造／建築	3%
+     * 資訊／科技	8%
+     * 貿易／銷售	7%
+     * 服務／傳播	6%
+     * 無業	1%
+     * 退休及家管	4%
+     * 批發零售業	3%
+     * 學生	2%
+     * 其他	1%
+     * 自由業	2%
+     *
+     * @return
+     */
+    final static String[] jobs = {"軍公教", "政府／公營事業", "軍／警／消防", "學校／補習班", "醫療／專業事務所", "金融／保險",
+            "製造／建築", "資訊／科技", "貿易／銷售", "服務／傳播", "無業", "退休及家管", "批發零售業", "學生", "其他", "自由業"};
     
     public static String strJob()
     {
-        return Data.job[random.nextInt(Data.job.length - 1)];
+        String strResult;
+        double[] p = {0.2, 0.12, 0.07, 0.1, 0.05, 0.09, 0.03, 0.08, 0.07, 0.06, 0.01, 0.04, 0.03,
+                0.02, 0.01, 0.02};
+        ArrayList result =
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 16, p);
+        
+        int nIndex = (int) result.get(0);
+        if (0 > nIndex || jobs.length <= nIndex)
+        {
+            nIndex = 14;
+        }
+        
+        return jobs[nIndex];
     }
+    
+    /**
+     * n=8,p1=0.01,p2=0.01,p3=0.1,p4=0.5,p5=0.3,p6=0.04,p7=0.01,p8=0.03
+     * 大型企業負責人/董監事	1%
+     * 中小型企業負責人/董監事	1%
+     * 主管	10%
+     * 一般職員	50%
+     * 佣金收入者	30%
+     * 專業人員	4%
+     * 學生	1%
+     * 自營業主	3%
+     *
+     * @return
+     */
+    private final static double[] jobTitleP = {0.01, 0.01, 0.1, 0.5, 0.3, 0.04, 0.01, 0.03};
+    private final static String[] jobTitleS = {"大型企業負責人/董監事", "中小型企業負責人/董監事", "主管", "一般職員",
+            "佣金收入者", "專業人員", "學生", "自營業主"};
     
     public static String strJobTitle()
     {
-        return Data.jobTitle[random.nextInt(Data.jobTitle.length - 1)];
+        return MultinominalDistribution(jobTitleP, jobTitleS);
+    }
+    
+    public static String MultinominalDistribution(double[] p, String[] strItemName)
+    {
+        String strResult;
+        ArrayList result =
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, p.length
+                        , p);
+        int nIndex = (int) result.get(0);
+        if (0 > nIndex || strItemName.length <= nIndex)
+        {
+            nIndex = 0;
+        }
+        return strItemName[nIndex];
+    }
+    
+    public static String MultinominalDistribution(ArrayList<MultinomialData> listMD)
+    {
+        String strResult;
+        int nIndex;
+        double[] p = new double[listMD.size()];
+        for (nIndex = 0; nIndex < listMD.size(); ++nIndex)
+        {
+            p[nIndex] = listMD.get(nIndex).probability;
+        }
+        ArrayList result =
+                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, p.length
+                        , p);
+        nIndex = (int) result.get(0);
+        if (0 > nIndex || listMD.size() <= nIndex)
+        {
+            nIndex = 0;
+        }
+        
+        return listMD.get(nIndex).itemName;
     }
     
     /**
@@ -317,10 +437,16 @@ public class BuildInFuncs
     public static String strShopingInfo()
     {
         Calendar calendar = Calendar.getInstance();
-        return String.format("%d-%02d-%02d %02d:%02d %dTWD", calendar.get(Calendar.YEAR),
+        double[] resultValue = ParetoDistFuncs(1);
+        ArrayList tmpResult = new ArrayList();
+        for (int i = 0; i < resultValue.length; i++)
+        {
+            tmpResult.add(Math.exp(resultValue[i]) * 100000);
+        }
+        String strValue = String.valueOf(tmpResult.get(0));
+        return String.format("%d-%02d-%02d %02d:%02d %sTWD", calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                random.nextInt(99999));
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), strValue);
     }
     
     /**
@@ -396,8 +522,7 @@ public class BuildInFuncs
         Calendar calendar = Calendar.getInstance();
         return String.format("%d/%02d/%02d %02d:%02d:%02d %s", calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                strTimeZ);
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), strTimeZ);
     }
     
     public static String strCountry()

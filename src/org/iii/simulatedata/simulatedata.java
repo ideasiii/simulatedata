@@ -16,6 +16,13 @@ public class simulatedata
 {
     public static void main(String[] args) throws Exception
     {
+        int nTotalNum = 10;
+        if (0 < args.length)
+        {
+            nTotalNum = Integer.valueOf(args[0]);
+            System.out.println(String.format("Simulate will generic %d", nTotalNum));
+        }
+        
         Dictionary.loadDics();
         File templates = new File("templates");
         if (templates.isDirectory())
@@ -48,7 +55,7 @@ public class simulatedata
                     {
                         key = sIterator.next();
                         listField.add(key);
-                       
+                        
                         if (null == strFields)
                         {
                             strFields = new StringBuilder(key);
@@ -63,28 +70,12 @@ public class simulatedata
                     pw.write(strFields.toString() + "\n");
                     String value;
                     StringBuilder strValues = new StringBuilder();
-                    /*
-                    for (int i = 0; i < listField.size(); ++i)
-                    {
-                        value = jsonObject.getString(listField.get(i));
-                        if (0 == i)
-                        {
-                            strValues = new StringBuilder(value);
-                        }
-                        else
-                        {
-                            strValues.append(",").append(value);
-                        }
-                    }
-                    System.out.println(strValues);
-                    pw.write(strValues.toString() + "\n");
-                     */
+                    
                     int nCount = 0;
+                    testTplAnalyzer = new TemplateAnalyzer(tpl);
                     do
                     {
-                        
-                        TemplateAnalyzer testTplAnalyzer2 = new TemplateAnalyzer(tpl);
-                        abc = testTplAnalyzer2.analyse();
+                        abc = testTplAnalyzer.analyse();
                         
                         jsonObject = new JSONObject(abc);
                         for (int i = 0; i < listField.size(); ++i)
@@ -99,11 +90,14 @@ public class simulatedata
                                 strValues.append(",").append(value);
                             }
                         }
+                        jsonObject = null;
                         
                         System.out.println(strValues);
                         pw.write(strValues.toString() + "\n");
+                        pw.flush();
+                        System.gc();
                         ++nCount;
-                    } while (1000 >= nCount);
+                    } while (nTotalNum > nCount);
                     System.out.println("Finish");
                     pw.close();
                 }
