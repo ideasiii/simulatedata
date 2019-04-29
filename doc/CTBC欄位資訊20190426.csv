@@ -1,0 +1,96 @@
+﻿欄位名稱,資料型態,機率分配,輸出範例,備註,處理狀態
+中文姓名,nominal,null,王小明,,
+英文姓名,nominal,null,Xiao Ming Wang,,
+身分證字號,nominal,null,A199999999,,
+手機號碼,nominal,null,09**-***-***,,
+電話號碼,nominal,null,02-33277777,,
+email,nominal,null,*mingwang@ctbc.com,,
+地址,nominal,null,台北市***路63巷49弄7樓,上位化到鄉鎮市區,
+FB帳號,nominal,null,Xiao Ming,拿掉,
+FB ID,nominal,null,199999999999111,拿掉,
+建物類型,categorical,multinomial distribution,電梯大廈,"n=4,p1=0.9,p2=0.06,p3=0.02,p4=0.02
+電梯大廈	90%
+透天	6%
+套房	2%
+其他	2%",
+職業,categorical,multinomial distribution,中國信託商業銀行,"n=16,p1=0.2,p2=0.12,p3=0.07,p4=0.1,p5=0.05,p6=0.09,p7=0.03,p8=0.08,p9=0.07,p10=0.06,p11=0.01,p12=0.04,p13=0.03,p14=0.02,p15=0.01,p16=0.02
+軍公教	20%
+政府／公營事業	12%
+軍／警／消防	7%
+學校／補習班	10%
+醫療／專業事務所	5%
+金融／保險	9%
+製造／建築	3%
+資訊／科技	8%
+貿易／銷售	7%
+服務／傳播	6%
+無業	1%
+退休及家管	4%
+批發零售業	3%
+學生	2%
+其他	1%
+自由業	2%",
+職稱,categorical,multinomial distribution,白領職員,"n=8,p1=0.01,p2=0.01,p3=0.1,p4=0.5,p5=0.3,p6=0.04,p7=0.01,p8=0.03
+大型企業負責人/董監事	1%
+中小型企業負責人/董監事	1%
+主管	10%
+一般職員	50%
+佣金收入者	30%
+專業人員	4%
+學生	1%
+自營業主	3%",
+轉帳備註,categorical,multinomial distribution,購物,"n=10,p1(null)=0.5,p2~p10=0.055
+購物(0.055)/親友轉帳(0.055)/還款(0.055)/房租(0.055)/卡費(0.055)/保費(0.055)/生活(水電瓦斯電費電信)(0.055)/投資(0.055)/其它(0.055)/null(0.5)",
+消費商戶名稱,nominal,null,屈臣氏-台中店,MCC 8碼 前4制式 後4流水,
+消費金額,"discrete,numerical",Pareto distribution,2018-01-25 19:50 12345TWD,"alpha=1 且取exp在乘100000
+TWD 0-1億",
+存款金額,"discrete,numerical",Pareto distribution,125365912345TWD,"alpha=1 且取exp在乘100000
+TWD 0-1億
+min 10000
+年收平均數60w",
+年收入,"discrete,numerical",Pareto distribution,125365912345TWD,"alpha=1 且取exp在乘100000
+min 10000, 年收平均數60w,",
+使用ATM次數,"discrete,numerical",poisson distribution,3,"lambda=1
+0-100, 0 發生次數很高(95% 0-3), 0-inflated巴松分布",
+三個月登入網銀次數,"discrete,numerical",poisson distribution,3,"lambda=1
+0-90, 0:發生次數很高, 0-inflated巴松分布",
+登入網銀時間,time,null,2018/4/2 08:15:55 AM,,
+地理位置等級,"discrete,numerical",poisson distribution,10-20萬,"lambda=8
+0-99 左偏常態分布, 平均數10",
+信用等級,"discrete,numerical",poisson distribution,5,"lambda=8
+0-99 左偏常態分布, 平均數10",
+收入等級,"discrete,numerical",poisson distribution,5,拿掉,
+分類客群,categorical,multinomial distribution,1,"n=7,p1=0.9,p2=0.08,p3~p7=0.04
+1(0.9)2(0.08),3~7(0.04)",
+地理網格,"continuous,numerical",null,第910054格,拿掉,
+進件來源,categorical,multinomial distribution,網銀,"n=6,p1=0.4,p2=0.1,p3=0.4,p4=0.04,p5=0.04,p6=0.02
+分行	40%
+仲介	10%
+代書	40%
+建商	4%
+網銀	4%
+其他	2%",
+不良紀錄備註,categorical,multinomial distribution,正常還款,"n=5,p1=0.9,p2=0.05,p3=0.03,p4=0.015,p5=0.005
+正常還款(0.9), 延至30(0.05), 60(0.03), 90(0.015), 跳票(0.005), 依序大幅遞減",
+延滯繳款時間紀錄,time,null,2018/3/31,YYYY/MM/DD(char(32))HH:MM,
+消費通路MCC code,nominal,null,詳參VISA說明(https://usa.visa.com/dam/.../visa-merchant-data-standards-manual.pdf),MCC 8碼 前4制式 後4流水,
+消費通路型態,categorical,multinomial distribution,網路交易,"n=4,p1=0.25,p2=0.25,p3=0.25,p4=0.25
+網路交易	25%
+網路特店交易	25%
+特店交易	25%
+一般交易	25%",
+他行卡張數,"discrete,numerical",poisson distribution,10,"lambda=1
+0-10, 中位數3",
+建物坪數,categorical,multinomial distribution,0-15,"n=4,p1=0.6,p2=0.15,p3=0.15,p4=0.1
+0-100, avg25%
+0-15(0.6),15-30(0.15),30-45(0.15),45-60(0.1)",
+客戶年資,categorical,multinomial distribution,5-10,"n=8,p1=0.2,p2=0.5,p3=0.1,p4=0.06,p5=0.05,p6=0.04,p7=0.03,p8=0.02
+0-40, 10高峰, 偏左常態分布
+0-5(0.2),5-10(0.5),10-15(0.1),15-20(0.06),20-25(0.05),25-30(0.04),30-35(0.03),35-40(0.02)",
+最近一個月百貨類交易比例,"discrete,numerical",poisson distribution,0.15,"lambda=1 且同除10
+0-99%, 15%中位數",
+最近一個月信用卡網路交易比例,"discrete,numerical",poisson distribution,0.8,"lambda=3 且同除10
+0-99%, 40%中位數",
+IP,nominal,null,140.112.234.219,iii處理,
+經緯度資料,nominal,null,"25.059499,121.615464",iii處理,
+Cookie,nominal,null,,拿掉,
