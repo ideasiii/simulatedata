@@ -13,6 +13,7 @@ import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 
 import static org.iii.simulatedata.utils.probabilityDistribution.ParetoDistFuncs.ParetoDistFuncs;
+import static org.iii.simulatedata.utils.probabilityDistribution.PoissonDistFuncs.PoissonDistFuncs;
 
 public class BuildInFuncs
 {
@@ -429,6 +430,41 @@ public class BuildInFuncs
         return (strPreCode + strBackCode);
     }
     
+    public static int ParetoDist(int nCount, int nMax)
+    {
+        int nResult = 0;
+        double[] resultValue = ParetoDistFuncs(1);
+        ArrayList tmpResult = new ArrayList();
+        for (int i = 0; i < resultValue.length; i++)
+        {
+            tmpResult.add(Math.exp(resultValue[i]) * nCount);
+        }
+        
+        Number number = (double) tmpResult.get(0);
+        nResult = number.intValue();
+        while (nResult > nMax)
+        {
+            nResult = nResult / 10;
+        }
+        
+        return nResult;
+    }
+    
+    public static int PoissonDist()
+    {
+        int nResult = 0;
+        int[] testResult = PoissonDistFuncs(1, 3);
+        ArrayList testResultRev = new ArrayList();
+        for (int i = 0; i < testResult.length; i++)
+        {
+            double resultRev = (double) testResult[i] / 10;
+            testResultRev.add(resultRev);
+        }
+        Number number = (double) testResultRev.get(0);
+        nResult = number.intValue();
+        return nResult;
+    }
+    
     /**
      * YYYY/MM/DD(char(32))HH:MM(char(32))12345TWD
      *
@@ -437,16 +473,10 @@ public class BuildInFuncs
     public static String strShopingInfo()
     {
         Calendar calendar = Calendar.getInstance();
-        double[] resultValue = ParetoDistFuncs(1);
-        ArrayList tmpResult = new ArrayList();
-        for (int i = 0; i < resultValue.length; i++)
-        {
-            tmpResult.add(Math.exp(resultValue[i]) * 100000);
-        }
-        String strValue = String.valueOf(tmpResult.get(0));
-        return String.format("%d-%02d-%02d %02d:%02d %sTWD", calendar.get(Calendar.YEAR),
+        return String.format("%d-%02d-%02d %02d:%02d %dTWD", calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), strValue);
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+                ParetoDist(100000, 100000000));
     }
     
     /**
@@ -458,12 +488,7 @@ public class BuildInFuncs
      */
     public static String strSaveMoney()
     {
-        int money = random.nextInt(666666);
-        if (10000 > money)
-        {
-            money += 10000;
-        }
-        return String.format("%dTWD", money);
+        return String.format("%dTWD", ParetoDist(100000, 100000000));
     }
     
     /**
@@ -474,12 +499,7 @@ public class BuildInFuncs
      */
     public static String strIncome()
     {
-        int money = random.nextInt(666666);
-        if (10000 > money)
-        {
-            money += 10000;
-        }
-        return String.format("%dTWD", money);
+        return String.format("%dTWD", ParetoDist(100000, 100000000));
     }
     
     /**
@@ -494,7 +514,7 @@ public class BuildInFuncs
         {
             return "0";
         }
-        return String.format("%d", random.nextInt(99) + 1);
+        return String.format("%d", PoissonDist()/*random.nextInt(99) + 1*/);
         
     }
     
