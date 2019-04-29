@@ -17,27 +17,18 @@
            "年收入": "$Func{strIncome()}",
            "使用ATM次數": "$Func{strATM()}",
            "三個月登入網銀次數": "$Func{strLoginBank()}",
-           "登入網銀時間": "",
-
-
-
-           "性別": "$Var{s}=$Dic{sex}",
-           "婚姻狀態": "$Dic{marital}",
-           "子女數": "$Dic{child}",
-           "服務機構": "$Dic{job}",
-           "最高學歷": "$Dic{education}",
-           "資金來源": "$Dic{source}",
-           "任職公司": "$Func{strCompany()}",
-           "公司電話": "$Func{strCompanyPhone()}",
-           "國籍": "$Dic{country}",
-           "語系": "$Func{strLocale()}",
-           "出生地": "$Var{town}=$Dic{town}",
-           "出生日期": "$Func{strBirthday()}",
-           "帳戶用途": "$Dic{usage}",
-           "抵押貸款額度": "$Dic{mortgage}",
-           "是否申請金融卡非約定轉帳": "$Dic{transfer}",
-           "身分證發證地點": "$Var{town}",
-           "統一編號": "$Func{strUniform()}",
+           "登入網銀時間": "$Func{strLoginBankWebTime()}",
+           "地理位置等級": "",
+           "信用等級": "",
+           "分類客群": "$Func{strCategorical()}",
+           "進件來源": "$Func{strComeFrom()}",
+           "不良紀錄備註": "$Func{strBadRecord()}",
+           "延滯繳款時間紀錄": "$Func{strDelayDate()}",
+           "消費通路MCC code": "$Func{strMCC()}",
+           "消費通路型態": "$Func{strSaleType()}",
+           "他行卡張數": "",
+           "建物坪數": "$Func{strBuildingInch()}",
+           "客戶年資": "$Func{strCustomHis()}"
 
 }
 

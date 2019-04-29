@@ -430,6 +430,57 @@ public class BuildInFuncs
         return (strPreCode + strBackCode);
     }
     
+    /**
+     * n=4,p1=0.25,p2=0.25,p3=0.25,p4=0.25
+     * 網路交易	25%
+     * 網路特店交易	25%
+     * 特店交易	25%
+     * 一般交易	25%
+     *
+     * @return
+     */
+    private final static double[] saleTypeP = {0.25, 0.25, 0.25, 0.25};
+    private final static String[] saleTypeS = {"網路交易", "網路特店交易", "特店交易", "一般交易"};
+    
+    public static String strSaleType()
+    {
+        return MultinominalDistribution(saleTypeP, saleTypeS);
+    }
+    
+    /**
+     * n=4,p1=0.6,p2=0.15,p3=0.15,p4=0.1
+     * 0-100, avg25%
+     * 0-15(0.6),15-30(0.15),30-45(0.15),45-60(0.1)
+     *
+     * @return
+     */
+    private final static double[] buildP = {0.6, 0.15, 0.15, 0.1};
+    private final static String[] buildS = {"0-15", "15-30", "30-45", "45-60"};
+    
+    public static String strBuildingInch()
+    {
+        return MultinominalDistribution(buildP, buildS);
+    }
+    
+    /**
+     * n=8,p1=0.2,p2=0.5,p3=0.1,p4=0.06,p5=0.05,p6=0.04,p7=0.03,p8=0.02
+     * 0-40, 10高峰, 偏左常態分布
+     * 0-5(0.2),5-10(0.5),10-15(0.1),15-20(0.06),20-25(0.05),25-30(0.04),30-35(0.03),35-40(0.02)
+     *
+     * @return
+     */
+    private final static double[] CustomHisP = {0.2, 0.5, 0.1, 0.06, 0.05, 0.04, 0.03, 0.02};
+    private final static String[] CustomHisS = {"0-5", "5-10", "10-15", "15-20", "20-25", "25-30"
+            , "30-35", "35-40"};
+    
+    public static String strCustomHis()
+    {
+        String strResult = MultinominalDistribution(buildP, buildS);
+        strResult = strResult.replace("-", "月");
+        strResult += "日";
+        return strResult;
+    }
+    
     public static int ParetoDist(int nCount, int nMax)
     {
         int nResult = 0;
@@ -524,13 +575,19 @@ public class BuildInFuncs
      *
      * @return
      */
+    private static int m_nLoginBankTime = 0;
+    
     public static String strLoginBank()
     {
         if (1 == BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.95)[0])
         {
-            return "0";
+            m_nLoginBankTime = 0;
         }
-        return String.format("%d", random.nextInt(89) + 1);
+        else
+        {
+            m_nLoginBankTime = random.nextInt(89) + 1;
+        }
+        return String.format("%d", m_nLoginBankTime);
     }
     
     /**
@@ -538,11 +595,88 @@ public class BuildInFuncs
      */
     public static String strLoginBankWebTime()
     {
+        
         String strTimeZ = "AM";
         Calendar calendar = Calendar.getInstance();
-        return String.format("%d/%02d/%02d %02d:%02d:%02d %s", calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), strTimeZ);
+        int nYear = calendar.get(Calendar.YEAR);
+        if (0 == m_nLoginBankTime)
+        {
+            nYear = nYear - 2;
+        }
+        int nMonth = random.nextInt(12);
+        if (0 == nMonth)
+        {
+            nMonth = 2;
+        }
+        int nDay;
+        if (2 == nMonth)
+        {
+            nDay = random.nextInt(28);
+        }
+        else
+        {
+            nDay = random.nextInt(30);
+        }
+        
+        int nHour = random.nextInt(23);
+        if (12 <= nHour)
+        {
+            strTimeZ = "PM";
+            nHour -= nHour;
+        }
+        
+        int nMinute = random.nextInt(59);
+        int nSecond = random.nextInt(59);
+        
+        return String.format("%d/%02d/%02d %02d:%02d:%02d %s", nYear, nMonth, nDay, nHour,
+                nMinute, nSecond, strTimeZ);
+    }
+    
+    /**
+     * n=7,p1=0.9,p2=0.08,p3~p7=0.04
+     * 1(0.9)2(0.08),3~7(0.04)
+     *
+     * @return
+     */
+    private final static double[] categoricalP = {0.9, 0.08, 0.04, 0.04, 0.04, 0.04, 0.04};
+    private final static String[] categoricalS = {"1", "2", "3", "4", "5", "6", "7"};
+    
+    public static String strCategorical()
+    {
+        return MultinominalDistribution(categoricalP, categoricalS);
+    }
+    
+    /**
+     * n=6,p1=0.4,p2=0.1,p3=0.4,p4=0.04,p5=0.04,p6=0.02
+     * 分行	40%
+     * 仲介	10%
+     * 代書	40%
+     * 建商	4%
+     * 網銀	4%
+     * 其他	2%
+     *
+     * @return
+     */
+    private final static double[] comeFromP = {0.4, 0.1, 0.4, 0.04, 0.04, 0.02};
+    private final static String[] comeFromS = {"分行", "仲介", "代書", "建商", "網銀", "其他"};
+    
+    public static String strComeFrom()
+    {
+        return MultinominalDistribution(comeFromP, comeFromS);
+    }
+    
+    /**
+     * n=5,p1=0.9,p2=0.05,p3=0.03,p4=0.015,p5=0.005
+     * 正常還款(0.9), 延至30(0.05), 60(0.03), 90(0.015), 跳票(0.005), 依序大幅遞減
+     *
+     * @return
+     */
+    private final static double[] badRecordP = {0.9, 0.05, 0.03, 0.015, 0.005};
+    private final static String[] badRecordS = {"正常還款", "延至30", "延至60", "延至90", "跳票"};
+    
+    public static String strBadRecord()
+    {
+        return MultinominalDistribution(badRecordP, badRecordS);
     }
     
     public static String strCountry()
@@ -555,6 +689,31 @@ public class BuildInFuncs
         Locale locale = Locale.getDefault();
         String s = locale.getDisplayName();
         return s;
+    }
+    
+    public static String strDelayDate()
+    {
+        int nAge = random.nextInt(3);
+        
+        Calendar calendar = Calendar.getInstance();
+        int nYear = calendar.get(Calendar.YEAR) - nAge;
+        int nMonth = random.nextInt(12);
+        if (0 == nMonth)
+        {
+            nMonth = 2;
+        }
+        int nDay;
+        if (2 == nMonth)
+        {
+            nDay = random.nextInt(28);
+        }
+        else
+        {
+            nDay = random.nextInt(30);
+        }
+        
+        String strB = String.format("%d/%d/%d", nYear, nMonth, nDay);
+        return strB;
     }
     
     public static String strBirthday()
