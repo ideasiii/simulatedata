@@ -18,17 +18,20 @@
            "使用ATM次數": "$Func{strATM()}",
            "三個月登入網銀次數": "$Func{strLoginBank()}",
            "登入網銀時間": "$Func{strLoginBankWebTime()}",
-           "地理位置等級": "",
-           "信用等級": "",
+           "地理位置等級": "$Func{strGeographicalLevel()}",
+           "信用等級": "$Func{strCreditRating()}",
            "分類客群": "$Func{strCategorical()}",
            "進件來源": "$Func{strComeFrom()}",
            "不良紀錄備註": "$Func{strBadRecord()}",
            "延滯繳款時間紀錄": "$Func{strDelayDate()}",
            "消費通路MCC code": "$Func{strMCC()}",
            "消費通路型態": "$Func{strSaleType()}",
-           "他行卡張數": "",
+           "他行卡張數": "$Func{strTheNumOfHisCards()}",
            "建物坪數": "$Func{strBuildingInch()}",
-           "客戶年資": "$Func{strCustomHis()}"
-
+           "客戶年資": "$Func{strCustomHis()}",
+           "最近一個月百貨類交易比例": "$Func{strDepartmentTransRatio()}",
+           "最近一個月信用卡網路交易比例": "$Func{strCreditOnlineTransRatio()}",
+           "IP": "$Func{strIP()}",
+           "經緯度資料": "$Func{strLatitudeAndLongitude()}"
 }
 

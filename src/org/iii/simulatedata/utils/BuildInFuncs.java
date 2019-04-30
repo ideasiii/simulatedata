@@ -373,49 +373,14 @@ public class BuildInFuncs
      *
      * @return
      */
+    private final static double[] transferNoteP = {0.055, 0.055, 0.055, 0.055, 0.055, 0.055,
+            0.055, 0.055, 0.055, 0.5};
+    private final static String[] transferNoteS = {"購物", "親友轉帳", "還款", "房租", "卡費", "保費", "生活" +
+            "(水電瓦斯電費電信)", "投資", "其它"};
+    
     public static String strTransferNote()
     {
-        String strResult;
-        double[] p = {0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.055, 0.5};
-        ArrayList result =
-                (ArrayList) MultinominalDistributionFuncs.multinominalRandomGenerator(1, 10, p);
-        
-        int nIndex = (int) result.get(0);
-        switch (nIndex)
-        {
-            case 0:
-                strResult = "購物";
-                break;
-            case 1:
-                strResult = "親友轉帳";
-                break;
-            case 2:
-                strResult = "還款";
-                break;
-            case 3:
-                strResult = "房租";
-                break;
-            case 4:
-                strResult = "卡費";
-                break;
-            case 5:
-                strResult = "保費";
-                break;
-            case 6:
-                strResult = "生活(水電瓦斯電費電信)";
-                break;
-            case 7:
-                strResult = "投資";
-                break;
-            case 8:
-                strResult = "其它";
-                break;
-            default:
-                strResult = "";
-                break;
-            
-        }
-        return strResult;
+        return MultinominalDistribution(transferNoteP, transferNoteS);
     }
     
     /**
@@ -501,19 +466,21 @@ public class BuildInFuncs
         return nResult;
     }
     
-    public static int PoissonDist()
+    public static Object PoissonDist(int lambda, boolean ispercent)
     {
         int nResult = 0;
-        int[] testResult = PoissonDistFuncs(1, 3);
-        ArrayList testResultRev = new ArrayList();
-        for (int i = 0; i < testResult.length; i++)
+        int[] testResult = PoissonDistFuncs(1, lambda);
+        
+        if (ispercent)
         {
-            double resultRev = (double) testResult[i] / 10;
-            testResultRev.add(resultRev);
+            double[] altest = new double[testResult.length];
+            for (int i = 0; i < testResult.length; ++i)
+            {
+                altest[i] = (double) testResult[i] / 10;
+            }
+            return altest[0];
         }
-        Number number = (double) testResultRev.get(0);
-        nResult = number.intValue();
-        return nResult;
+        return testResult[0];
     }
     
     /**
@@ -561,12 +528,7 @@ public class BuildInFuncs
      */
     public static String strATM()
     {
-        if (1 == BinominalDistFuncs.BinominalDistFuncs(1, 1, 0.95)[0])
-        {
-            return "0";
-        }
-        return String.format("%d", PoissonDist()/*random.nextInt(99) + 1*/);
-        
+        return String.format("%d", PoissonDist(1, false));
     }
     
     /**
@@ -1203,6 +1165,67 @@ public class BuildInFuncs
         IDMaker idMaker = new IDMaker();
         strResult = idMaker.random();
         return strResult;
+    }
+    
+    public static String strGeographicalLevel()
+    {
+        int nLevel = (int) PoissonDist(8, false);
+        return String.format("%d-%d萬", nLevel, 10 + nLevel);
+    }
+    
+    public static String strCreditRating()
+    {
+        int nLevel = (int) PoissonDist(8, false);
+        return String.format("%d", nLevel);
+    }
+    
+    public static String strTheNumOfHisCards()
+    {
+        int nLevel = (int) PoissonDist(1, false);
+        return String.format("%d", nLevel);
+    }
+    
+    public static String strDepartmentTransRatio()
+    {
+        double nLevel = (double) PoissonDist(1, true);
+        return String.format("%f", nLevel);
+    }
+    
+    public static String strCreditOnlineTransRatio()
+    {
+        double nLevel = (double) PoissonDist(3, true);
+        return String.format("%f", nLevel);
+    }
+    
+    public static String strIP()
+    {
+        int[] anIP = new int[4];
+        
+        for (int i = 0; i < anIP.length; ++i)
+        {
+            anIP[i] = random.nextInt(254);
+            if (0 == anIP[i] || 10 == anIP[i] || 172 == anIP[i] || 192 == anIP[i] || 127 == anIP[i])
+            {
+                anIP[i] = 140;
+            }
+        }
+        
+        return String.format("%d.%d.%d.%d", anIP[0], anIP[1], anIP[2], anIP[3]);
+    }
+    
+    /**
+     * 東經120度至122度，北緯22度至25度
+     *
+     * @return
+     */
+    public static String strLatitudeAndLongitude()
+    {
+        int[] LaInt = {22, 23, 24, 25};
+        int[] LoInt = {120, 121, 122};
+        
+        double La = LaInt[random.nextInt(LaInt.length - 1)] + random.nextDouble();
+        double Lo = LoInt[random.nextInt(LoInt.length - 1)] + random.nextDouble();
+        return String.format("%f,%f", La, Lo);
     }
     
 }
