@@ -38,6 +38,8 @@ public class BuildInFuncs
         return Math.abs(random.nextLong());
     }
     
+    private static ArrayList<String> listMobilePhone = new ArrayList<String>();
+    
     public static String numRand(Integer n)
     {
         StringBuilder strb = new StringBuilder(n);
@@ -440,10 +442,7 @@ public class BuildInFuncs
     
     public static String strCustomHis()
     {
-        String strResult = MultinominalDistribution(buildP, buildS);
-        strResult = strResult.replace("-", "月");
-        strResult += "日";
-        return strResult;
+        return MultinominalDistribution(buildP, buildS);
     }
     
     public static int ParetoDist(int nCount, int nMax)
@@ -506,7 +505,7 @@ public class BuildInFuncs
      */
     public static String strSaveMoney()
     {
-        return String.format("%dTWD", ParetoDist(100000, 100000000));
+        return String.format("%d", ParetoDist(100000, 100000000));
     }
     
     /**
@@ -517,7 +516,7 @@ public class BuildInFuncs
      */
     public static String strIncome()
     {
-        return String.format("%dTWD", ParetoDist(100000, 100000000));
+        return String.format("%d", ParetoDist(100000, 100000000));
     }
     
     /**
@@ -758,11 +757,13 @@ public class BuildInFuncs
         return strRecord;
     }
     
+    public static int MobilePhoneCount = 0;
+    
     public static String strMobilePhone(Integer nType)
     {
         String strNumber = "1234567890";
         String strPrex = Data.mobile[random.nextInt(Data.mobile.length - 1)];
-        String strResult;
+        String strResult = "";
         StringBuilder salt = new StringBuilder();
         for (int i = 0; i < 6; ++i)
         {
@@ -778,10 +779,23 @@ public class BuildInFuncs
                 strResult = String.format("%s-%s-%s", strPrex, salt.substring(0, 3),
                         salt.substring(3, 6));
                 break;
+            case 3:
+                if (MobilePhoneCount >= listMobilePhone.size())
+                {
+                    MobilePhoneCount = 0;
+                }
+                if (0 <= MobilePhoneCount && MobilePhoneCount < listMobilePhone.size())
+                {
+                    strResult = listMobilePhone.get(MobilePhoneCount++);
+                }
+                break;
             default:
                 strResult = strPrex + salt.toString();
         }
-        
+        if (3 != nType)
+        {
+            listMobilePhone.add(strResult);
+        }
         return strResult;
     }
     
@@ -1225,7 +1239,7 @@ public class BuildInFuncs
         
         double La = LaInt[random.nextInt(LaInt.length - 1)] + random.nextDouble();
         double Lo = LoInt[random.nextInt(LoInt.length - 1)] + random.nextDouble();
-        return String.format("%f,%f", La, Lo);
+        return String.format("%f %f", La, Lo);
     }
     
 }
