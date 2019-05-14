@@ -776,6 +776,7 @@ public class BuildInFuncs
                 strResult = "886" + (strPrex + salt.toString()).substring(1); // 886912345678
                 break;
             case 2:
+            case 4:
                 strResult = String.format("%s-%s-%s", strPrex, salt.substring(0, 3),
                         salt.substring(3, 6));
                 break;
@@ -792,7 +793,7 @@ public class BuildInFuncs
             default:
                 strResult = strPrex + salt.toString();
         }
-        if (3 != nType)
+        if (3 != nType && 4 != nType)
         {
             listMobilePhone.add(strResult);
         }
